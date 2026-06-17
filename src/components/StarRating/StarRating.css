@@ -1,0 +1,286 @@
+﻿/* ============================================
+   ⭐ Star Rating Component
+   ============================================ */
+
+   .star-rating {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    position: relative;
+    user-select: none;
+}
+
+/* ===== حاوية النجوم ===== */
+.star-rating-stars {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    position: relative;
+}
+
+/* ===== زر النجمة ===== */
+.star-rating-btn {
+    background: transparent;
+    border: none;
+    padding: 2px;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-border);
+}
+
+.star-rating.interactive .star-rating-btn:hover {
+    cursor: pointer;
+}
+
+.star-rating-btn:disabled {
+    cursor: default;
+}
+
+.star-rating-btn svg {
+    transition: all var(--transition-normal);
+    display: block;
+}
+
+/* ===== الأحجام ===== */
+.star-rating--sm .star-rating-btn svg {
+    font-size: 14px;
+}
+
+.star-rating--md .star-rating-btn svg {
+    font-size: 18px;
+}
+
+.star-rating--lg .star-rating-btn svg {
+    font-size: 24px;
+}
+
+/* ===== النجوم الفارغة ===== */
+.star-rating-btn.empty {
+    color: var(--color-border);
+}
+
+/* ===== النجوم الممتلئة ===== */
+.star-rating-btn.filled {
+    color: var(--color-sun);
+}
+
+.star-rating-btn.filled svg {
+    filter: drop-shadow(0 0 4px rgba(255, 200, 87, 0.5));
+}
+
+/* ===== تأثير Hover ===== */
+.star-rating.interactive .star-rating-btn:hover {
+    transform: scale(1.3) rotate(-5deg);
+}
+
+.star-rating.interactive .star-rating-btn:hover svg {
+    color: var(--color-sun-dark);
+    filter: drop-shadow(0 0 8px rgba(230, 169, 0, 0.6));
+}
+
+/* ===== النجوم بعد التقييم ===== */
+.star-rating-btn.rated.filled {
+    animation: starPop 0.5s ease forwards;
+}
+
+.star-rating-btn.rated.filled:nth-child(1) { animation-delay: 0s; }
+.star-rating-btn.rated.filled:nth-child(2) { animation-delay: 0.1s; }
+.star-rating-btn.rated.filled:nth-child(3) { animation-delay: 0.2s; }
+.star-rating-btn.rated.filled:nth-child(4) { animation-delay: 0.3s; }
+.star-rating-btn.rated.filled:nth-child(5) { animation-delay: 0.4s; }
+
+@keyframes starPop {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.5) rotate(15deg);
+        filter: drop-shadow(0 0 12px rgba(255, 200, 87, 0.9));
+    }
+    100% {
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+/* ===== التلألؤ المستمر للنجوم المُقيَّمة ===== */
+.star-rating-btn.rated.filled svg {
+    animation: twinkle 2s ease-in-out infinite;
+}
+
+.star-rating-btn.rated.filled:nth-child(1) svg { animation-delay: 0s; }
+.star-rating-btn.rated.filled:nth-child(2) svg { animation-delay: 0.4s; }
+.star-rating-btn.rated.filled:nth-child(3) svg { animation-delay: 0.8s; }
+.star-rating-btn.rated.filled:nth-child(4) svg { animation-delay: 1.2s; }
+.star-rating-btn.rated.filled:nth-child(5) svg { animation-delay: 1.6s; }
+
+@keyframes twinkle {
+    0%, 100% {
+        filter: drop-shadow(0 0 4px rgba(255, 200, 87, 0.5));
+        opacity: 1;
+    }
+    50% {
+        filter: drop-shadow(0 0 12px rgba(255, 200, 87, 1)) 
+                drop-shadow(0 0 20px rgba(255, 200, 87, 0.6));
+        opacity: 1;
+        transform: scale(1.1);
+    }
+}
+
+/* ===== جزيئات التلألؤ (Sparkles) ===== */
+.sparkles-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.sparkle {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 6px;
+    height: 6px;
+    background: var(--color-sun);
+    border-radius: 50%;
+    opacity: 0;
+    animation: sparkleAnim 1s ease-out forwards;
+    animation-delay: var(--delay, 0s);
+    box-shadow: 0 0 8px rgba(255, 200, 87, 0.8);
+}
+
+.sparkle::before,
+.sparkle::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 2px;
+    background: var(--color-sun);
+    transform: translate(-50%, -50%);
+    border-radius: 2px;
+}
+
+.sparkle::after {
+    transform: translate(-50%, -50%) rotate(90deg);
+}
+
+@keyframes sparkleAnim {
+    0% {
+        opacity: 0;
+        transform: translate(0, 0) scale(0) rotate(0deg);
+    }
+    20% {
+        opacity: 1;
+        transform: translate(calc(var(--x) * 0.3), calc(var(--y) * 0.3)) scale(1) rotate(90deg);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(var(--x), var(--y)) scale(0) rotate(360deg);
+    }
+}
+
+/* ===== معلومات التقييم ===== */
+.star-rating-info {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-right: var(--spacing-xs);
+    font-family: var(--font-body);
+    font-size: var(--fs-xs);
+}
+
+.star-rating-value {
+    font-family: var(--font-heading);
+    font-weight: var(--weight-bold);
+    color: var(--color-text);
+}
+
+.star-rating-count {
+    color: var(--color-muted);
+}
+
+.star-rating-user {
+    color: var(--color-text-secondary);
+    font-size: var(--fs-xs);
+}
+
+.star-rating-user strong {
+    color: var(--color-primary);
+    font-weight: var(--weight-bold);
+    font-size: var(--fs-sm);
+    margin: 0 4px;
+}
+
+/* ===== رسالة الشكر ===== */
+.star-rating-thanks {
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--gradient-primary);
+    color: var(--color-white);
+    padding: 6px 16px;
+    border-radius: var(--radius-full);
+    font-family: var(--font-button);
+    font-size: var(--fs-xs);
+    font-weight: var(--weight-bold);
+    white-space: nowrap;
+    box-shadow: var(--shadow-lg);
+    z-index: 100;
+    animation: thanksPop 2s ease forwards;
+    pointer-events: none;
+}
+
+.star-rating-thanks::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+    width: 12px;
+    height: 12px;
+    background: var(--color-primary);
+}
+
+@keyframes thanksPop {
+    0% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(10px) scale(0.8);
+    }
+    20% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0) scale(1.1);
+    }
+    30% {
+        transform: translateX(-50%) translateY(0) scale(1);
+    }
+    80% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-10px) scale(0.8);
+    }
+}
+
+/* ===== Dark Mode ===== */
+[data-bs-theme="dark"] .star-rating-btn.empty {
+    color: var(--color-border-dark);
+}
+
+[data-bs-theme="dark"] .star-rating-btn.filled {
+    color: var(--color-sun);
+}
+
+[data-bs-theme="dark"] .star-rating-value {
+    color: var(--color-text);
+}

@@ -1,0 +1,193 @@
+﻿/* ============================================
+   🏠 تنسيقات الصفحة الرئيسية - Home Page
+   ============================================ */
+
+   .home-page {
+    min-height: 100vh;
+    background-color: var(--color-bg);
+    overflow-x: hidden;
+}
+
+/* ============================================
+   📦 نظام الأقسام - Sections System
+   ============================================ */
+
+.home-section {
+    position: relative;
+    width: 100%;
+    padding: 0;
+    /* إلغاء padding الافتراضي للـ section لأن المكونات الداخلية بها padding */
+}
+
+/* ===== Hero Section ===== */
+.home-hero-section {
+    background: transparent;
+    padding: 0;
+    margin-bottom: 0;
+}
+
+/* ===== Categories Section ===== */
+.home-categories-section {
+    background-color: var(--color-white);
+    padding: var(--spacing-4xl) 0;
+    position: relative;
+}
+
+/* خط فاصل علوي ناعم */
+.home-categories-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, 
+        transparent 0%, 
+        var(--color-border-light) 50%, 
+        transparent 100%);
+}
+
+/* ===== Books Section ===== */
+.home-books-section {
+    background-color: var(--color-bg-light);
+    padding: var(--spacing-4xl) 0;
+    position: relative;
+}
+
+/* ===== Authors Section ===== */
+.home-authors-section {
+    background-color: var(--color-white);
+    padding: var(--spacing-4xl) 0;
+    position: relative;
+}
+
+/* ===== Blogs Section ===== */
+.home-blogs-section {
+    background-color: var(--color-bg-light);
+    padding: var(--spacing-4xl) 0;
+    position: relative;
+}
+
+/* ===== Newsletter Section - مميز ===== */
+.home-newsletter-section {
+    background: linear-gradient(135deg, 
+        var(--color-bg-alt) 0%, 
+        var(--color-bg-light) 100%);
+    padding: var(--spacing-4xl) 0;
+    position: relative;
+    overflow: hidden;
+}
+
+/* زخرفة خفيفة للـ Newsletter */
+.home-newsletter-section::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -10%;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, 
+        var(--color-primary-100) 0%, 
+        transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.home-newsletter-section::after {
+    content: '';
+    position: absolute;
+    bottom: -50%;
+    left: -10%;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, 
+        var(--color-secondary-100) 0%, 
+        transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+/* ============================================
+   📱 Responsive Design
+   ============================================ */
+
+@media (max-width: 992px) {
+    .home-categories-section,
+    .home-books-section,
+    .home-authors-section,
+    .home-blogs-section,
+    .home-newsletter-section {
+        padding: var(--spacing-3xl) 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .home-categories-section,
+    .home-books-section,
+    .home-authors-section,
+    .home-blogs-section,
+    .home-newsletter-section {
+        padding: var(--spacing-2xl) 0;
+    }
+    
+    .home-newsletter-section::before,
+    .home-newsletter-section::after {
+        width: 250px;
+        height: 250px;
+    }
+}
+
+@media (max-width: 480px) {
+    .home-categories-section,
+    .home-books-section,
+    .home-authors-section,
+    .home-blogs-section,
+    .home-newsletter-section {
+        padding: var(--spacing-xl) 0;
+    }
+}
+
+/* ============================================
+   🌙 Dark Mode Support
+   ============================================ */
+
+[data-bs-theme="dark"] .home-categories-section,
+[data-bs-theme="dark"] .home-authors-section {
+    background-color: var(--color-bg-alt);
+}
+
+[data-bs-theme="dark"] .home-books-section,
+[data-bs-theme="dark"] .home-blogs-section {
+    background-color: var(--color-bg);
+}
+
+[data-bs-theme="dark"] .home-newsletter-section {
+    background: linear-gradient(135deg, 
+        var(--color-bg) 0%, 
+        var(--color-bg-alt) 100%);
+}
+
+/* ============================================
+   ✨ Section Animations (اختياري)
+   ============================================ */
+
+@keyframes sectionFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.home-section {
+    animation: sectionFadeIn 0.6s ease-out backwards;
+}
+
+.home-categories-section { animation-delay: 0.1s; }
+.home-books-section { animation-delay: 0.2s; }
+.home-authors-section { animation-delay: 0.3s; }
+.home-blogs-section { animation-delay: 0.4s; }
+.home-newsletter-section { animation-delay: 0.5s; }

@@ -1,0 +1,704 @@
+﻿/* ============================================================================
+   📧 Newsletter Section - "شروق المعرفة"
+   ============================================================================ */
+
+   .nl-section {
+    padding: var(--spacing-4xl) 0;
+    overflow: hidden;
+}
+
+.nl-container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 var(--spacing-lg);
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: var(--spacing-3xl);
+    align-items: stretch;
+}
+
+
+/* ============================================================================
+   🎁 الجزء الأيمن: المميزات
+   ============================================================================ */
+
+.nl-features {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xl);
+    justify-content: center;
+}
+
+.nl-features-header {
+    text-align: center;
+}
+
+.nl-features-title {
+    font-family: var(--font-heading);
+    font-size: var(--fs-3xl);
+    font-weight: var(--weight-extrabold);
+    color: var(--color-text);
+    margin: 0 0 var(--spacing-xs);
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.nl-features-subtitle {
+    font-family: var(--font-body);
+    font-size: var(--fs-base);
+    color: var(--color-text-secondary);
+    margin: 0;
+}
+
+
+/* ===== شبكة المميزات ===== */
+.nl-features-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-md);
+}
+
+.nl-feature-card {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-lg);
+    background: var(--color-white);
+    border-radius: var(--radius-2xl);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--color-border-light);
+    transition: all var(--transition-normal);
+    animation: nlFadeInUp 0.6s ease-out backwards;
+}
+
+.nl-feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--color-primary-200);
+}
+
+@keyframes nlFadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.nl-feature-icon {
+    width: 50px;
+    height: 50px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--gradient-primary);
+    color: var(--color-white);
+    border-radius: var(--radius-xl);
+    font-size: var(--fs-xl);
+    box-shadow: var(--shadow-sm);
+    transition: all var(--transition-normal);
+}
+
+.nl-feature-card:hover .nl-feature-icon {
+    transform: rotate(-8deg) scale(1.1);
+    box-shadow: var(--shadow-md);
+}
+
+.nl-feature-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+.nl-feature-text {
+    font-family: var(--font-heading);
+    font-size: var(--fs-base);
+    font-weight: var(--weight-bold);
+    color: var(--color-text);
+}
+
+.nl-feature-desc {
+    font-family: var(--font-body);
+    font-size: var(--fs-xs);
+    color: var(--color-text-secondary);
+}
+
+
+/* ============================================================================
+   📝 الجزء الأيسر: محتوى الاشتراك
+   ============================================================================ */
+
+.nl-content {
+    position: relative;
+    background: linear-gradient(
+        135deg,
+        var(--color-primary) 0%,
+        var(--color-primary-dark) 50%,
+        #FF8500 100%
+    );
+    padding: var(--spacing-3xl);
+    border-radius: var(--radius-3xl);
+    box-shadow: var(--shadow-xl);
+    overflow: hidden;
+    color: var(--color-white);
+}
+
+/* ===== زخارف خلفية ===== */
+.nl-decoration {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.nl-decoration--1 {
+    top: -120px;
+    right: -120px;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(
+        circle,
+        rgba(255, 200, 87, 0.4) 0%,
+        transparent 70%
+    );
+    animation: nlPulse 5s ease-in-out infinite;
+}
+
+.nl-decoration--2 {
+    bottom: -100px;
+    left: -100px;
+    width: 250px;
+    height: 250px;
+    background: radial-gradient(
+        circle,
+        rgba(255, 255, 255, 0.2) 0%,
+        transparent 70%
+    );
+    animation: nlPulse 5s ease-in-out infinite 2s;
+}
+
+@keyframes nlPulse {
+    0%, 100% { transform: scale(1); opacity: 0.6; }
+    50% { transform: scale(1.15); opacity: 1; }
+}
+
+.nl-content-inner {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xl);
+}
+
+
+/* ===== الهيدر ===== */
+.nl-header {
+    text-align: center;
+}
+
+.nl-icon-wrapper {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto var(--spacing-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.2);
+    color: var(--color-white);
+    border-radius: var(--radius-full);
+    font-size: var(--fs-3xl);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    animation: nlIconBounce 2s ease-in-out infinite;
+}
+
+@keyframes nlIconBounce {
+    0%, 100% { transform: translateY(0) rotate(0); }
+    50% { transform: translateY(-8px) rotate(-5deg); }
+}
+
+.nl-title {
+    font-family: var(--font-heading);
+    font-size: var(--fs-3xl);
+    font-weight: var(--weight-extrabold);
+    color: var(--color-white);
+    margin: 0 0 var(--spacing-sm);
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.nl-description {
+    font-family: var(--font-body);
+    font-size: var(--fs-base);
+    color: rgba(255, 255, 255, 0.95);
+    margin: 0;
+    line-height: 1.7;
+}
+
+
+/* ============================================================================
+   📋 النموذج
+   ============================================================================ */
+
+.nl-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+
+/* ===== Input Wrapper ===== */
+.nl-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    transition: all var(--transition-normal);
+}
+
+.nl-input-wrapper.has-error {
+    animation: nlShake 0.4s ease;
+}
+
+@keyframes nlShake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-8px); }
+    75% { transform: translateX(8px); }
+}
+
+
+/* ===== أيقونة Input ===== */
+.nl-input-icon {
+    position: absolute;
+    right: var(--spacing-lg);
+    font-size: var(--fs-lg);
+    color: var(--color-muted);
+    z-index: 2;
+    pointer-events: none;
+    transition: color var(--transition-fast);
+}
+
+.nl-icon-error {
+    color: var(--color-error) !important;
+    animation: nlIconPulse 1.5s ease infinite;
+}
+
+.nl-icon-success {
+    color: var(--color-success) !important;
+}
+
+@keyframes nlIconPulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.7; transform: scale(1.1); }
+}
+
+
+/* ===== الحقل ===== */
+.nl-input {
+    width: 100%;
+    padding: var(--spacing-lg) var(--spacing-3xl) var(--spacing-lg) var(--spacing-md);
+    font-family: var(--font-body);
+    font-size: var(--fs-base);
+    font-weight: var(--weight-medium);
+    color: var(--color-text);
+    background: var(--color-white);
+    border: 2px solid transparent;
+    border-radius: var(--radius-xl);
+    transition: all var(--transition-normal);
+    outline: none;
+    box-shadow: var(--shadow-md);
+}
+
+.nl-input:focus {
+    background: var(--color-white);
+    border-color: var(--color-sun);
+    box-shadow: 0 0 0 4px rgba(255, 200, 87, 0.4);
+}
+
+.nl-input::placeholder {
+    color: var(--color-muted);
+    opacity: 0.8;
+}
+
+.nl-input:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+/* ===== حالات Validation ===== */
+.nl-input.is-error {
+    border-color: var(--color-error) !important;
+    background: var(--color-error-bg) !important;
+}
+
+.nl-input.is-error:focus {
+    box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.25) !important;
+}
+
+.nl-input.is-success {
+    border-color: var(--color-success) !important;
+    background: var(--color-success-bg) !important;
+}
+
+.nl-input.is-success:focus {
+    box-shadow: 0 0 0 4px rgba(24, 169, 153, 0.25) !important;
+}
+
+
+/* ===== رسالة الخطأ ===== */
+.nl-error-message {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    margin: calc(-1 * var(--spacing-sm)) 0 0;
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: rgba(255, 255, 255, 0.95);
+    color: var(--color-error);
+    border-radius: var(--radius-md);
+    font-family: var(--font-body);
+    font-size: var(--fs-sm);
+    font-weight: var(--weight-semibold);
+    animation: nlSlideDown 0.3s ease;
+}
+
+@keyframes nlSlideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.nl-error-message svg {
+    flex-shrink: 0;
+    font-size: var(--fs-base);
+}
+
+
+/* ===== زر الاشتراك ===== */
+.nl-submit-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    width: 100%;
+    padding: var(--spacing-md) var(--spacing-xl);
+    font-family: var(--font-button);
+    font-size: var(--fs-base);
+    font-weight: var(--weight-bold);
+    color: var(--color-primary-dark);
+    background: var(--color-white);
+    border: none;
+    border-radius: var(--radius-xl);
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    box-shadow: var(--shadow-lg);
+    position: relative;
+    overflow: hidden;
+}
+
+.nl-submit-btn:hover:not(:disabled) {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-xl);
+    background: var(--color-sun);
+    color: var(--color-text);
+}
+
+.nl-submit-btn:active:not(:disabled) {
+    transform: translateY(-1px);
+}
+
+.nl-submit-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+.nl-submit-btn.is-loading {
+    background: rgba(255, 255, 255, 0.9);
+}
+
+.nl-submit-btn.is-success {
+    background: var(--color-success);
+    color: var(--color-white);
+}
+
+
+/* ===== Spinner ===== */
+.nl-spinner {
+    width: 18px;
+    height: 18px;
+    border: 3px solid rgba(255, 122, 61, 0.3);
+    border-top-color: var(--color-primary);
+    border-radius: 50%;
+    animation: nlSpin 0.8s linear infinite;
+}
+
+@keyframes nlSpin {
+    to { transform: rotate(360deg); }
+}
+
+
+/* ===== رسالة النجاح ===== */
+.nl-success-message {
+    text-align: center;
+    margin: 0;
+    padding: var(--spacing-md);
+    background: rgba(255, 255, 255, 0.95);
+    color: var(--color-success);
+    border-radius: var(--radius-lg);
+    font-family: var(--font-body);
+    font-size: var(--fs-sm);
+    font-weight: var(--weight-bold);
+    animation: nlSlideDown 0.3s ease;
+}
+
+
+/* ===== نص الخصوصية ===== */
+.nl-privacy {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-xs);
+    margin: 0;
+    font-family: var(--font-body);
+    font-size: var(--fs-xs);
+    color: rgba(255, 255, 255, 0.85);
+    text-align: center;
+}
+
+.nl-privacy svg {
+    flex-shrink: 0;
+    color: var(--color-sun);
+}
+
+
+/* ============================================================================
+   ✅ حالة "مشترك مسبقاً"
+   ============================================================================ */
+
+.nl-already-subscribed {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: var(--spacing-3xl);
+    background: linear-gradient(135deg, var(--color-bg-light), var(--color-bg-alt));
+    border: 2px solid var(--color-success);
+    border-radius: var(--radius-3xl);
+    text-align: center;
+    box-shadow: var(--shadow-lg);
+}
+
+.nl-success-icon-wrapper {
+    width: 90px;
+    height: 90px;
+    margin: 0 auto var(--spacing-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--gradient-accent);
+    color: var(--color-white);
+    border-radius: var(--radius-full);
+    font-size: var(--fs-4xl);
+    box-shadow: var(--shadow-lg);
+    animation: nlSuccessBounce 1s ease-out;
+}
+
+@keyframes nlSuccessBounce {
+    0% { transform: scale(0) rotate(0); opacity: 0; }
+    60% { transform: scale(1.2) rotate(360deg); }
+    100% { transform: scale(1) rotate(360deg); opacity: 1; }
+}
+
+.nl-success-title {
+    font-family: var(--font-heading);
+    font-size: var(--fs-2xl);
+    font-weight: var(--weight-extrabold);
+    color: var(--color-text);
+    margin: 0 0 var(--spacing-sm);
+}
+
+.nl-success-text {
+    font-family: var(--font-body);
+    font-size: var(--fs-base);
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+    margin: 0 0 var(--spacing-xl);
+}
+
+.nl-unsubscribe-btn {
+    padding: var(--spacing-sm) var(--spacing-xl);
+    background: transparent;
+    color: var(--color-primary);
+    border: 2px solid var(--color-primary);
+    border-radius: var(--radius-full);
+    font-family: var(--font-button);
+    font-size: var(--fs-sm);
+    font-weight: var(--weight-semibold);
+    cursor: pointer;
+    transition: all var(--transition-normal);
+}
+
+.nl-unsubscribe-btn:hover {
+    background: var(--gradient-button);
+    color: var(--color-white);
+    border-color: transparent;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-button);
+}
+
+
+/* ============================================================================
+   🌙 Dark Mode
+   ============================================================================ */
+
+[data-bs-theme="dark"] .nl-feature-card {
+    background: var(--color-card-bg);
+    border-color: var(--color-border);
+}
+
+[data-bs-theme="dark"] .nl-feature-card:hover {
+    border-color: var(--color-primary);
+}
+
+[data-bs-theme="dark"] .nl-feature-text {
+    color: var(--color-text);
+}
+
+[data-bs-theme="dark"] .nl-feature-desc {
+    color: var(--color-text-secondary);
+}
+
+[data-bs-theme="dark"] .nl-input {
+    background: var(--color-card-bg);
+    color: var(--color-text);
+}
+
+[data-bs-theme="dark"] .nl-input:focus {
+    background: var(--color-card-bg);
+}
+
+[data-bs-theme="dark"] .nl-input::placeholder {
+    color: var(--color-muted);
+}
+
+[data-bs-theme="dark"] .nl-input.is-error {
+    background: rgba(239, 68, 68, 0.15) !important;
+}
+
+[data-bs-theme="dark"] .nl-input.is-success {
+    background: rgba(45, 212, 191, 0.15) !important;
+}
+
+[data-bs-theme="dark"] .nl-submit-btn {
+    background: var(--color-bg-alt);
+    color: var(--color-primary-light);
+}
+
+[data-bs-theme="dark"] .nl-submit-btn:hover:not(:disabled) {
+    background: var(--color-sun);
+    color: var(--color-black);
+}
+
+[data-bs-theme="dark"] .nl-already-subscribed {
+    background: linear-gradient(135deg, var(--color-card-bg), var(--color-bg-alt));
+}
+
+
+/* ============================================================================
+   📱 Responsive
+   ============================================================================ */
+
+@media (max-width: 992px) {
+    .nl-container {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-2xl);
+    }
+    
+    .nl-features {
+        order: 2;
+    }
+    
+    .nl-content {
+        order: 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .nl-section {
+        padding: var(--spacing-2xl) 0;
+    }
+    
+    .nl-container {
+        padding: 0 var(--spacing-md);
+    }
+    
+    .nl-content {
+        padding: var(--spacing-2xl) var(--spacing-lg);
+    }
+    
+    .nl-icon-wrapper {
+        width: 60px;
+        height: 60px;
+        font-size: var(--fs-2xl);
+    }
+    
+    .nl-title {
+        font-size: var(--fs-2xl);
+    }
+    
+    .nl-description {
+        font-size: var(--fs-sm);
+    }
+    
+    .nl-features-title {
+        font-size: var(--fs-2xl);
+    }
+    
+    .nl-features-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .nl-feature-card {
+        padding: var(--spacing-md);
+    }
+    
+    .nl-already-subscribed {
+        padding: var(--spacing-2xl) var(--spacing-lg);
+    }
+}
+
+@media (max-width: 480px) {
+    .nl-content {
+        padding: var(--spacing-xl) var(--spacing-md);
+        border-radius: var(--radius-2xl);
+    }
+    
+    .nl-input {
+        font-size: var(--fs-sm);
+        padding: var(--spacing-md) var(--spacing-2xl) var(--spacing-md) var(--spacing-sm);
+    }
+    
+    .nl-submit-btn {
+        font-size: var(--fs-sm);
+    }
+    
+    .nl-feature-icon {
+        width: 42px;
+        height: 42px;
+        font-size: var(--fs-base);
+    }
+    
+    .nl-success-icon-wrapper {
+        width: 70px;
+        height: 70px;
+        font-size: var(--fs-3xl);
+    }
+}

@@ -1,0 +1,814 @@
+﻿/* ============================================================================
+   🔍 QUICK VIEW MODAL - تصميم احترافي بهوية شروق المعرفة
+   ============================================================================
+   فهرس المحتويات:
+   
+   1. 🎭 Backdrop & Modal Container
+   2. ❌ زر الإغلاق
+   3. 📐 Grid Layout الرئيسي
+   4. 🖼️ العمود الجانبي - الصورة
+   5. 🏷️ الشارات (Badges)
+   6. 💰 كرت السعر
+   7. 🎯 أزرار الإجراءات
+   8. 📝 العمود الرئيسي - التفاصيل
+   9. 📚 معلومات الكتاب (Info Grid)
+   10. 📖 معاينة المحتوى
+   11. 🎬 Animations
+   12. 🌙 Dark Mode
+   13. 📱 Responsive
+   ============================================================================ */
+
+
+/* ============================================================================
+   1. 🎭 Backdrop & Modal Container
+   ============================================================================ */
+
+   .quickview-backdrop {
+    position: fixed;
+    inset: 0;
+    background: var(--color-overlay);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: var(--z-modal-backdrop);
+    animation: backdropFadeIn 0.3s ease;
+}
+
+@keyframes backdropFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.quickview-modal {
+    position: fixed;
+    inset: 0;
+    z-index: var(--z-modal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-lg);
+    overflow-y: auto;
+}
+
+.quickview-content {
+    position: relative;
+    background: var(--color-card-bg);
+    border-radius: var(--radius-2xl);
+    box-shadow: var(--shadow-2xl);
+    width: 100%;
+    max-width: 1100px;
+    max-height: 90vh;
+    overflow: hidden;
+    animation: modalSlideUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes modalSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+
+/* ============================================================================
+   2. ❌ زر الإغلاق
+   ============================================================================ */
+
+.quickview-close {
+    position: absolute;
+    top: var(--spacing-md);
+    left: var(--spacing-md);
+    z-index: 10;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-white);
+    color: var(--color-text);
+    border: none;
+    border-radius: var(--radius-full);
+    font-size: var(--fs-base);
+    cursor: pointer;
+    box-shadow: var(--shadow-md);
+    transition: all var(--transition-fast);
+}
+
+.quickview-close:hover {
+    background: var(--color-error);
+    color: var(--color-white);
+    transform: scale(1.1) rotate(90deg);
+    box-shadow: var(--shadow-lg);
+}
+
+
+/* ============================================================================
+   3. 📐 Grid Layout الرئيسي
+   ============================================================================ */
+
+.quickview-grid {
+    display: grid;
+    grid-template-columns: 360px 1fr;
+    gap: 0;
+    max-height: 90vh;
+    overflow: hidden;
+}
+
+
+/* ============================================================================
+   4. 🖼️ العمود الجانبي - الصورة
+   ============================================================================ */
+
+.quickview-sidebar {
+    padding: var(--spacing-xl);
+    background: linear-gradient(
+        180deg,
+        var(--color-bg-alt) 0%,
+        var(--color-bg-light) 100%
+    );
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+    overflow-y: auto;
+    max-height: 90vh;
+}
+
+.quickview-image-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    background: var(--color-white);
+    box-shadow: var(--shadow-lg);
+}
+
+.quickview-image-skeleton {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        90deg,
+        var(--color-bg-light) 0%,
+        var(--color-bg-alt) 50%,
+        var(--color-bg-light) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+.quickview-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: all var(--transition-slow);
+    opacity: 0;
+}
+
+.quickview-image.loaded {
+    opacity: 1;
+}
+
+.quickview-image-wrapper:hover .quickview-image {
+    transform: scale(1.05);
+}
+
+
+/* ============================================================================
+   5. 🏷️ الشارات (Badges)
+   ============================================================================ */
+
+.quickview-badges {
+    position: absolute;
+    top: var(--spacing-sm);
+    right: var(--spacing-sm);
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+}
+
+.quickview-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 12px;
+    font-family: var(--font-heading);
+    font-size: var(--fs-xs);
+    font-weight: var(--weight-bold);
+    color: var(--color-white);
+    border-radius: var(--radius-full);
+    box-shadow: var(--shadow-md);
+    white-space: nowrap;
+    backdrop-filter: blur(4px);
+}
+
+.quickview-badge--discount {
+    background: var(--color-error);
+}
+
+.quickview-badge--new {
+    background: var(--gradient-accent);
+}
+
+.quickview-badge--bestseller {
+    background: var(--gradient-primary);
+}
+
+
+/* ============================================================================
+   6. 💰 كرت السعر
+   ============================================================================ */
+
+.quickview-price-card {
+    background: var(--color-white);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.quickview-price-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-md);
+    flex-wrap: wrap;
+}
+
+.quickview-price-block {
+    display: flex;
+    align-items: baseline;
+    gap: var(--spacing-sm);
+}
+
+.quickview-price-current {
+    font-family: var(--font-heading);
+    font-size: var(--fs-3xl);
+    font-weight: var(--weight-extrabold);
+    color: var(--color-primary);
+    line-height: 1;
+}
+
+.quickview-price-old {
+    font-family: var(--font-body);
+    font-size: var(--fs-base);
+    color: var(--color-muted);
+    text-decoration: line-through;
+}
+
+/* ===== شارة التوفر ===== */
+.quickview-availability {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    padding: 6px 14px;
+    border-radius: var(--radius-full);
+    font-family: var(--font-button);
+    font-size: var(--fs-xs);
+    font-weight: var(--weight-semibold);
+    white-space: nowrap;
+}
+
+.quickview-availability.available {
+    background: var(--color-success-bg);
+    color: var(--color-success);
+}
+
+.quickview-availability.unavailable {
+    background: var(--color-error-bg);
+    color: var(--color-error);
+}
+
+.quickview-availability svg {
+    font-size: var(--fs-sm);
+}
+
+/* ===== تنبيه الكمية المحدودة ===== */
+.quickview-stock-alert {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    background: var(--color-warning-bg);
+    color: var(--color-sun-dark);
+    border-radius: var(--radius-md);
+    font-family: var(--font-body);
+    font-size: var(--fs-xs);
+    font-weight: var(--weight-semibold);
+    border: 1px solid var(--color-warning);
+    animation: stockPulse 2s ease-in-out infinite;
+}
+
+.quickview-stock-alert svg {
+    flex-shrink: 0;
+}
+
+@keyframes stockPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.8; }
+}
+
+
+/* ============================================================================
+   7. 🎯 أزرار الإجراءات
+   ============================================================================ */
+
+.quickview-actions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.quickview-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-md) var(--spacing-lg);
+    font-family: var(--font-button);
+    font-size: var(--fs-base);
+    font-weight: var(--weight-semibold);
+    border: 2px solid transparent;
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+/* ===== الزر الرئيسي - إضافة للسلة ===== */
+.quickview-btn--primary {
+    background: var(--gradient-button);
+    color: var(--color-white);
+    box-shadow: var(--shadow-button);
+}
+
+.quickview-btn--primary:hover:not(:disabled) {
+    background: var(--gradient-button-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-button-hover);
+}
+
+.quickview-btn--primary.added {
+    background: var(--gradient-accent);
+    animation: btnSuccess 0.5s ease;
+}
+
+@keyframes btnSuccess {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.quickview-btn--primary:disabled {
+    background: var(--color-muted);
+    cursor: not-allowed;
+    box-shadow: none;
+    opacity: 0.6;
+}
+
+/* ===== زر المفضلة ===== */
+.quickview-btn--wishlist {
+    background: var(--color-white);
+    color: var(--color-text);
+    border-color: var(--color-border);
+}
+
+.quickview-btn--wishlist:hover {
+    border-color: var(--color-error);
+    color: var(--color-error);
+    transform: translateY(-2px);
+}
+
+.quickview-btn--wishlist.active {
+    background: var(--color-error-bg);
+    color: var(--color-error);
+    border-color: var(--color-error);
+}
+
+.quickview-btn--wishlist.active svg {
+    animation: heartBeat 0.5s ease;
+}
+
+@keyframes heartBeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+}
+
+/* ===== زر التفاصيل ===== */
+.quickview-btn--details {
+    background: transparent;
+    color: var(--color-primary);
+    border-color: var(--color-primary);
+}
+
+.quickview-btn--details:hover {
+    background: var(--color-primary);
+    color: var(--color-white);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.quickview-btn-arrow {
+    margin-right: auto;
+    font-size: var(--fs-sm);
+    transition: transform var(--transition-fast);
+}
+
+.quickview-btn--details:hover .quickview-btn-arrow {
+    transform: translateX(-4px);
+}
+
+
+/* ============================================================================
+   8. 📝 العمود الرئيسي - التفاصيل
+   ============================================================================ */
+
+.quickview-details {
+    padding: var(--spacing-xl);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+    overflow-y: auto;
+    max-height: 90vh;
+}
+
+.quickview-details::-webkit-scrollbar {
+    width: 8px;
+}
+
+.quickview-details::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.quickview-details::-webkit-scrollbar-thumb {
+    background: var(--color-border);
+    border-radius: var(--radius-full);
+}
+
+.quickview-details::-webkit-scrollbar-thumb:hover {
+    background: var(--color-primary-light);
+}
+
+/* ===== Header (العنوان + المعلومات) ===== */
+.quickview-header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    padding-bottom: var(--spacing-lg);
+    border-bottom: 1px solid var(--color-border-light);
+}
+
+.quickview-categories {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-xs);
+    margin-bottom: var(--spacing-xs);
+}
+
+.quickview-category-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 12px;
+    background: var(--color-primary-100);
+    color: var(--color-primary-dark);
+    font-family: var(--font-body);
+    font-size: var(--fs-xs);
+    font-weight: var(--weight-semibold);
+    border-radius: var(--radius-full);
+    text-decoration: none;
+    border: 1px solid var(--color-primary-200);
+    transition: all var(--transition-fast);
+}
+
+.quickview-category-tag:hover {
+    background: var(--gradient-primary);
+    color: var(--color-white);
+    border-color: transparent;
+    transform: translateY(-2px);
+}
+
+.quickview-category-tag svg {
+    font-size: 10px;
+}
+
+.quickview-title {
+    font-family: var(--font-heading);
+    font-size: var(--fs-3xl);
+    font-weight: var(--weight-extrabold);
+    color: var(--color-text);
+    line-height: 1.3;
+    margin: 0;
+    letter-spacing: -0.01em;
+}
+
+.quickview-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.quickview-meta-item {
+    font-family: var(--font-body);
+    font-size: var(--fs-sm);
+    color: var(--color-text-secondary);
+    margin: 0;
+}
+
+.quickview-meta-label {
+    color: var(--color-muted);
+    margin-left: var(--spacing-xs);
+}
+
+.quickview-meta-item strong {
+    color: var(--color-text);
+    font-weight: var(--weight-semibold);
+}
+
+.quickview-rating {
+    margin-top: var(--spacing-xs);
+}
+
+/* ===== الأقسام ===== */
+.quickview-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.quickview-section-title {
+    font-family: var(--font-heading);
+    font-size: var(--fs-lg);
+    font-weight: var(--weight-bold);
+    color: var(--color-text);
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.quickview-section-title svg {
+    color: var(--color-primary);
+    font-size: var(--fs-base);
+}
+
+.quickview-description {
+    font-family: var(--font-body);
+    font-size: var(--fs-base);
+    color: var(--color-text-light);
+    line-height: 1.8;
+    margin: 0;
+}
+
+
+/* ============================================================================
+   9. 📚 معلومات الكتاب (Info Grid)
+   ============================================================================ */
+
+.quickview-info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-md);
+    padding: var(--spacing-md);
+    background: var(--color-bg-light);
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--color-border-light);
+}
+
+.quickview-info-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.quickview-info-icon {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-primary-100);
+    color: var(--color-primary);
+    border-radius: var(--radius-md);
+    font-size: var(--fs-base);
+    flex-shrink: 0;
+}
+
+.quickview-info-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex: 1;
+    min-width: 0;
+}
+
+.quickview-info-label {
+    font-family: var(--font-body);
+    font-size: var(--fs-xs);
+    color: var(--color-muted);
+    font-weight: var(--weight-medium);
+}
+
+.quickview-info-value {
+    font-family: var(--font-heading);
+    font-size: var(--fs-sm);
+    color: var(--color-text);
+    font-weight: var(--weight-bold);
+}
+
+.quickview-info-value.low-stock {
+    color: var(--color-warning);
+}
+
+
+/* ============================================================================
+   10. 📖 معاينة المحتوى
+   ============================================================================ */
+
+.quickview-content-preview {
+    padding: var(--spacing-md);
+    background: var(--color-bg-light);
+    border-radius: var(--radius-lg);
+    border-right: 4px solid var(--color-primary);
+}
+
+.quickview-preview-paragraph {
+    font-family: var(--font-body);
+    font-size: var(--fs-base);
+    color: var(--color-text-light);
+    line-height: 1.8;
+    margin: 0 0 var(--spacing-md);
+}
+
+.quickview-preview-paragraph:last-child {
+    margin-bottom: 0;
+}
+
+.quickview-preview-heading {
+    font-family: var(--font-heading);
+    color: var(--color-primary);
+    margin: var(--spacing-md) 0 var(--spacing-sm);
+}
+
+
+/* ============================================================================
+   11. 🌙 Dark Mode
+   ============================================================================ */
+
+[data-bs-theme="dark"] .quickview-content {
+    background: var(--color-bg-alt);
+}
+
+[data-bs-theme="dark"] .quickview-close {
+    background: var(--color-card-bg);
+    color: var(--color-text);
+}
+
+[data-bs-theme="dark"] .quickview-sidebar {
+    background: linear-gradient(
+        180deg,
+        var(--color-bg) 0%,
+        var(--color-bg-alt) 100%
+    );
+}
+
+[data-bs-theme="dark"] .quickview-image-wrapper {
+    background: var(--color-card-bg);
+}
+
+[data-bs-theme="dark"] .quickview-price-card {
+    background: var(--color-card-bg);
+    border-color: var(--color-border);
+}
+
+[data-bs-theme="dark"] .quickview-btn--wishlist {
+    background: var(--color-card-bg);
+    border-color: var(--color-border);
+    color: var(--color-text);
+}
+
+[data-bs-theme="dark"] .quickview-header {
+    border-bottom-color: var(--color-border);
+}
+
+[data-bs-theme="dark"] .quickview-info-grid,
+[data-bs-theme="dark"] .quickview-content-preview {
+    background: var(--color-card-bg);
+    border-color: var(--color-border);
+}
+
+[data-bs-theme="dark"] .quickview-category-tag {
+    background: var(--color-primary-100);
+    color: var(--color-primary-light);
+}
+
+[data-bs-theme="dark"] .quickview-stock-alert {
+    background: rgba(255, 200, 87, 0.15);
+    color: var(--color-sun);
+}
+
+
+/* ============================================================================
+   12. 📱 Responsive Design
+   ============================================================================ */
+
+/* ===== Tablets ===== */
+@media (max-width: 992px) {
+    .quickview-grid {
+        grid-template-columns: 1fr;
+        max-height: none;
+    }
+    
+    .quickview-sidebar,
+    .quickview-details {
+        max-height: none;
+        overflow-y: visible;
+    }
+    
+    .quickview-content {
+        max-height: 95vh;
+        overflow-y: auto;
+    }
+    
+    .quickview-image-wrapper {
+        max-width: 280px;
+        margin: 0 auto;
+    }
+    
+    .quickview-title {
+        font-size: var(--fs-2xl);
+    }
+}
+
+/* ===== Mobile ===== */
+@media (max-width: 768px) {
+    .quickview-modal {
+        padding: var(--spacing-sm);
+    }
+    
+    .quickview-content {
+        max-height: 100vh;
+        border-radius: var(--radius-xl);
+    }
+    
+    .quickview-sidebar,
+    .quickview-details {
+        padding: var(--spacing-md);
+    }
+    
+    .quickview-info-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .quickview-price-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacing-sm);
+    }
+    
+    .quickview-price-current {
+        font-size: var(--fs-2xl);
+    }
+    
+    .quickview-title {
+        font-size: var(--fs-xl);
+    }
+    
+    .quickview-close {
+        width: 38px;
+        height: 38px;
+    }
+}
+
+/* ===== Small Mobile ===== */
+@media (max-width: 480px) {
+    .quickview-modal {
+        padding: 0;
+    }
+    
+    .quickview-content {
+        border-radius: 0;
+        max-height: 100vh;
+        height: 100vh;
+    }
+    
+    .quickview-btn {
+        font-size: var(--fs-sm);
+        padding: var(--spacing-sm) var(--spacing-md);
+    }
+    
+    .quickview-btn--details .quickview-btn-arrow {
+        display: none;
+    }
+}

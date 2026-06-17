@@ -1,0 +1,510 @@
+﻿/* ============================================
+   📚 Books Section - تصميم احترافي
+   ============================================ */
+
+   .books-container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 var(--spacing-lg);
+    width: 100%;
+}
+
+/* ============================================
+   📌 Header
+   ============================================ */
+
+.books-header {
+    margin-bottom: var(--spacing-xl);
+    text-align: center;
+}
+
+/* ============================================
+   🎯 الفلاتر السريعة
+   ============================================ */
+
+.books-filters {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-2xl);
+    padding: var(--spacing-md);
+    background: var(--color-white);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--color-border-light);
+    flex-wrap: wrap;
+}
+
+.books-filters-tabs {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    flex-wrap: wrap;
+}
+
+.books-filter-tab {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: transparent;
+    color: var(--color-text-light);
+    border: 1.5px solid transparent;
+    border-radius: var(--radius-full);
+    font-family: var(--font-button);
+    font-size: var(--fs-sm);
+    font-weight: var(--weight-semibold);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    white-space: nowrap;
+}
+
+.books-filter-tab:hover {
+    background: var(--color-primary-50);
+    color: var(--color-primary);
+}
+
+.books-filter-tab.active {
+    background: var(--gradient-button);
+    color: var(--color-white);
+    box-shadow: var(--shadow-sm);
+}
+
+.books-filter-tab.active:hover {
+    background: var(--gradient-button-hover);
+    transform: translateY(-1px);
+}
+
+.books-filter-icon {
+    font-size: var(--fs-sm);
+}
+
+/* زر عرض الكل */
+.books-view-all {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: transparent;
+    color: var(--color-primary);
+    border: 1.5px solid var(--color-primary);
+    border-radius: var(--radius-full);
+    font-family: var(--font-button);
+    font-size: var(--fs-sm);
+    font-weight: var(--weight-semibold);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    text-decoration: none;
+}
+
+.books-view-all:hover {
+    background: var(--color-primary);
+    color: var(--color-white);
+    transform: translateX(-3px);
+}
+
+/* ============================================
+   📦 شبكة الكتب
+   ============================================ */
+
+   .books-grid {
+    display: grid !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important; 
+    gap: var(--spacing-lg);
+    align-items: stretch;
+    width: 100%;
+}
+
+/* ============================================
+   💀 Skeleton Loader
+   ============================================ */
+
+.book-skeleton {
+    background: var(--color-white);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    border: 1px solid var(--color-border-light);
+    min-height: 480px;
+    display: flex;
+    flex-direction: column;
+}
+
+.book-skeleton-cover {
+    width: 100%;
+    height: 280px;
+    background: linear-gradient(
+        90deg,
+        var(--color-bg-light) 0%,
+        var(--color-bg-alt) 50%,
+        var(--color-bg-light) 100%
+    );
+    background-size: 200% 100%;
+    animation: skeletonShimmer 1.5s infinite;
+}
+
+.book-skeleton-info {
+    padding: var(--spacing-md);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.book-skeleton-line {
+    height: 14px;
+    background: linear-gradient(
+        90deg,
+        var(--color-bg-light) 0%,
+        var(--color-bg-alt) 50%,
+        var(--color-bg-light) 100%
+    );
+    background-size: 200% 100%;
+    animation: skeletonShimmer 1.5s infinite;
+    border-radius: var(--radius-sm);
+}
+
+.book-skeleton-line--tag {
+    width: 60px;
+    height: 20px;
+    border-radius: var(--radius-full);
+}
+
+.book-skeleton-line--title {
+    width: 90%;
+    height: 18px;
+}
+
+.book-skeleton-line--author {
+    width: 60%;
+    height: 12px;
+}
+
+.book-skeleton-line--rating {
+    width: 70%;
+    height: 14px;
+}
+
+.book-skeleton-line--price {
+    width: 60px;
+    height: 24px;
+}
+
+.book-skeleton-footer {
+    margin-top: auto;
+    padding-top: var(--spacing-md);
+    border-top: 1px solid var(--color-border-light);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.book-skeleton-btn {
+    width: 100px;
+    height: 36px;
+    background: linear-gradient(
+        90deg,
+        var(--color-bg-light) 0%,
+        var(--color-bg-alt) 50%,
+        var(--color-bg-light) 100%
+    );
+    background-size: 200% 100%;
+    animation: skeletonShimmer 1.5s infinite;
+    border-radius: var(--radius-md);
+}
+
+@keyframes skeletonShimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* ============================================
+   🎯 حالات الـ State (Error & Empty)
+   ============================================ */
+
+.books-state {
+    text-align: center;
+    padding: var(--spacing-4xl) var(--spacing-xl);
+    background: var(--color-white);
+    border-radius: var(--radius-2xl);
+    border: 2px dashed var(--color-border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-md);
+    min-height: 400px;
+    justify-content: center;
+}
+
+.books-state--error {
+    border-color: var(--color-error);
+    background: var(--color-error-bg);
+}
+
+.books-state--empty {
+    border-color: var(--color-primary-200);
+}
+
+.books-state-icon {
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-white);
+    border-radius: var(--radius-full);
+    font-size: var(--fs-3xl);
+    color: var(--color-primary);
+    box-shadow: var(--shadow-md);
+    margin-bottom: var(--spacing-sm);
+}
+
+.books-state--error .books-state-icon {
+    color: var(--color-error);
+}
+
+.books-state-title {
+    font-family: var(--font-heading);
+    font-size: var(--fs-2xl);
+    font-weight: var(--weight-bold);
+    color: var(--color-text);
+    margin: 0;
+}
+
+.books-state-message {
+    font-family: var(--font-body);
+    font-size: var(--fs-base);
+    color: var(--color-text-secondary);
+    margin: 0;
+    max-width: 400px;
+}
+
+.books-state-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-md);
+    padding: var(--spacing-sm) var(--spacing-xl);
+    background: var(--gradient-button);
+    color: var(--color-white);
+    border: none;
+    border-radius: var(--radius-full);
+    font-family: var(--font-button);
+    font-size: var(--fs-base);
+    font-weight: var(--weight-semibold);
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    box-shadow: var(--shadow-button);
+}
+
+.books-state-btn:hover {
+    background: var(--gradient-button-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-button-hover);
+}
+
+/* ============================================
+   ⬇️ زر تحميل المزيد
+   ============================================ */
+
+.books-load-more {
+    margin-top: var(--spacing-3xl);
+    text-align: center;
+    padding-top: var(--spacing-xl);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-md);
+}
+
+.books-load-more-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-md) var(--spacing-2xl);
+    background: var(--gradient-button);
+    color: var(--color-white);
+    border: none;
+    border-radius: var(--radius-full);
+    font-family: var(--font-button);
+    font-size: var(--fs-base);
+    font-weight: var(--weight-semibold);
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    box-shadow: var(--shadow-button);
+}
+
+.books-load-more-btn:hover {
+    background: var(--gradient-button-hover);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-button-hover);
+}
+
+.books-load-more-btn:active {
+    transform: translateY(-1px);
+}
+
+.books-load-more-icon {
+    font-size: var(--fs-lg);
+    animation: sparkleRotate 2s ease-in-out infinite;
+}
+
+@keyframes sparkleRotate {
+    0%, 100% { transform: rotate(0deg) scale(1); }
+    50% { transform: rotate(180deg) scale(1.2); }
+}
+
+.books-load-more-info {
+    font-family: var(--font-body);
+    font-size: var(--fs-sm);
+    color: var(--color-text-secondary);
+    margin: 0;
+}
+
+.books-load-more-info strong {
+    color: var(--color-primary);
+    font-weight: var(--weight-bold);
+}
+
+/* ============================================
+   🌙 Dark Mode
+   ============================================ */
+
+[data-bs-theme="dark"] .books-filters {
+    background: var(--color-card-bg);
+    border-color: var(--color-border);
+}
+
+[data-bs-theme="dark"] .books-filter-tab {
+    color: var(--color-text-light);
+}
+
+[data-bs-theme="dark"] .books-filter-tab:hover {
+    background: var(--color-primary-100);
+    color: var(--color-primary-light);
+}
+
+[data-bs-theme="dark"] .book-skeleton,
+[data-bs-theme="dark"] .books-state {
+    background: var(--color-card-bg);
+    border-color: var(--color-border);
+}
+
+[data-bs-theme="dark"] .book-skeleton-cover,
+[data-bs-theme="dark"] .book-skeleton-line,
+[data-bs-theme="dark"] .book-skeleton-btn {
+    background: linear-gradient(
+        90deg,
+        var(--color-bg-alt) 0%,
+        var(--color-card-bg) 50%,
+        var(--color-bg-alt) 100%
+    );
+    background-size: 200% 100%;
+}
+
+[data-bs-theme="dark"] .books-state-icon {
+    background: var(--color-bg-alt);
+}
+
+/* ============================================
+   📱 Responsive Design
+   ============================================ */
+
+/* Large Tablets */
+@media (max-width: 1200px) {
+  .books-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+      gap: var(--spacing-md) !important;
+  }
+}
+
+/* Tablets */
+@media (max-width: 992px) {
+    .books-filters {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .books-filters-tabs {
+        justify-content: center;
+        overflow-x: auto;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+    
+    .books-filters-tabs::-webkit-scrollbar {
+        display: none;
+    }
+    
+    .books-view-all {
+        justify-content: center;
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .books-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--spacing-md);
+    }
+    
+    .book-skeleton {
+        min-height: 440px;
+    }
+    
+    .book-skeleton-cover {
+        height: 240px;
+    }
+    
+    .books-filter-tab {
+        padding: var(--spacing-xs) var(--spacing-sm);
+        font-size: var(--fs-xs);
+    }
+    
+    .books-filter-tab span {
+        display: none;
+    }
+    
+    .books-filter-tab .books-filter-icon {
+        font-size: var(--fs-base);
+    }
+    
+    .books-load-more-btn {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .books-state {
+        padding: var(--spacing-2xl) var(--spacing-md);
+        min-height: 300px;
+    }
+    
+    .books-state-icon {
+        width: 60px;
+        height: 60px;
+        font-size: var(--fs-2xl);
+    }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+    .books-grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    
+    .book-skeleton {
+        min-height: 400px;
+    }
+    
+    .book-skeleton-cover {
+        height: 280px;
+    }
+    
+    .books-filters-tabs {
+        gap: 4px;
+    }
+    
+    .books-filter-tab {
+        padding: var(--spacing-xs);
+    }
+}
